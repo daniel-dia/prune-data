@@ -54,6 +54,12 @@ describe('contextSlim', () => {
     assert.strictEqual(contextSlim(null), undefined);
   });
 
+  it('preserves scalar values', () => {
+    assert.strictEqual(contextSlim('value'), 'value');
+    assert.strictEqual(contextSlim(42), 42);
+    assert.strictEqual(contextSlim(true), true);
+  });
+
   it('preserves non-plain objects', () => {
     const date = new Date('2026-08-17T00:00:00.000Z');
     const result = contextSlim({ date });

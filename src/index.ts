@@ -18,9 +18,8 @@ export const defaults: Readonly<Required<CleanOptions>> = {
   unwrapSingleArray: true,
 };
 
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  if (value === null || typeof value !== 'object') return false;
-  const prototype = Object.getPrototypeOf(value);
+function isPlainObject(value: object): value is Record<string, unknown> {
+  const prototype = Reflect.getPrototypeOf(value);
   return prototype === Object.prototype || prototype === null;
 }
 
@@ -35,14 +34,18 @@ function clean(value: unknown, options: Required<CleanOptions>): unknown {
     return items.length === 1 && options.unwrapSingleArray ? items[0] : items;
   }
 
-  if (!isPlainObject(value)) return value;
+  if (typeof value === 'object') {
+    if (!isPlainObject(value)) return value;
 
-  const entries = Object.entries(value)
-    .map(([key, item]) => [key, clean(item, options)] as const)
-    .filter(([, item]) => item !== SKIP);
+    const entries = Object.entries(value)
+      .map(([key, item]) => [key, clean(item, options)] as const)
+      .filter(([, item]) => item !== SKIP);
 
-  if (entries.length === 0 && options.removeEmptyObject) return SKIP;
-  return Object.fromEntries(entries);
+    if (entries.length === 0 && options.removeEmptyObject) return SKIP;
+    return Object.fromEntries(entries);
+  }
+
+  return value;
 }
 
 export default function contextSlim(value: unknown, options: CleanOptions = {}): unknown {
