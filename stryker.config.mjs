@@ -1,4 +1,5 @@
 export default {
+  inPlace: true,
   mutate: ['src/**/*.ts'],
   testRunner: 'command',
   commandRunner: {

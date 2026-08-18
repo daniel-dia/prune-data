@@ -19,7 +19,7 @@
     "node": ">=26"
   },
   "scripts": {
-    "build": "tsgo -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
     "test": "node --test --test-isolation=process context-slim.test.js",
     "coverage": "node --test --test-isolation=process --experimental-test-coverage context-slim.test.js",
     "mutation": "stryker run",
@@ -35,7 +35,6 @@
   "license": "MIT",
   "devDependencies": {
     "@stryker-mutator/core": "^10.0.0",
-    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
-    "typescript": "^5.9.3"
+    "typescript": "^7.0.2"
   }
 }
