@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import contextSlim, { defaults } from './dist/index.js';
+import contextSlim, { defaults } from './src/index.ts';
 
 describe('contextSlim', () => {
   it('uses compact defaults', () => {

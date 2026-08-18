@@ -1,4 +1,4 @@
-# context-slim
+# context-lean
 
 A tiny, dependency-free Node.js utility that removes low-value response data before encoding it for an agent (for example, with TOON).
 
@@ -13,7 +13,7 @@ Do not use it for API payloads, persistence, events, RPC, or communication betwe
 ## Install
 
 ```bash
-npm install context-slim
+npm install context-lean
 ```
 
 Requires Node.js 26 or newer.
@@ -21,7 +21,7 @@ Requires Node.js 26 or newer.
 ## Usage
 
 ```js
-import contextSlim from 'context-slim';
+import contextSlim from 'context-lean';
 
 const payload = contextSlim({
   status: ['ok'],

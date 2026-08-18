@@ -1,5 +1,5 @@
 {
-  "name": "context-slim",
+  "name": "context-lean",
   "version": "0.1.0",
   "description": "Dependency-free payload slimmer for compact agent context.",
   "type": "module",
@@ -19,9 +19,10 @@
     "node": ">=26"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test --test-isolation=process context-slim.test.js",
-    "coverage": "npm run build && node --test --test-isolation=process --experimental-test-coverage context-slim.test.js",
+    "build": "tsgo -p tsconfig.json",
+    "test": "node --test --test-isolation=process context-slim.test.js",
+    "coverage": "node --test --test-isolation=process --experimental-test-coverage context-slim.test.js",
+    "mutation": "stryker run",
     "prepack": "npm run build"
   },
   "keywords": [
@@ -33,6 +34,8 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@stryker-mutator/core": "^10.0.0",
+    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "typescript": "^5.9.3"
   }
 }
