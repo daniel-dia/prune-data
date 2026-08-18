@@ -1,6 +1,6 @@
 {
   "name": "context-lean",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dependency-free payload slimmer for compact agent context.",
   "type": "module",
   "exports": {
