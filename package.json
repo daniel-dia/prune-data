@@ -3,6 +3,7 @@
   "version": "0.1.4",
   "description": "Dependency-free payload slimmer for compact agent context.",
   "type": "module",
+  
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
