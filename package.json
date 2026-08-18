@@ -36,5 +36,8 @@
   "devDependencies": {
     "@stryker-mutator/core": "^10.0.0",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "context-lean": "^0.1.2"
   }
 }
