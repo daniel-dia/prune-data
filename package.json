@@ -1,0 +1,38 @@
+{
+  "name": "context-slim",
+  "version": "0.1.0",
+  "description": "Dependency-free payload slimmer for compact agent context.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test --test-isolation=process context-slim.test.js",
+    "coverage": "npm run build && node --test --test-isolation=process --experimental-test-coverage context-slim.test.js",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "agent",
+    "context",
+    "toon",
+    "clean",
+    "compact"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
