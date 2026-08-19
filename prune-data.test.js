@@ -7,8 +7,8 @@ describe('pruneData', () => {
     assert.deepStrictEqual(defaults, {
       removeEmptyArray: true,
       removeEmptyObject: true,
-      removeEmptyString: false,
-      removeNull: false,
+      removeEmptyString: true,
+      removeNull: true,
       removeUndefined: true,
       unwrapSingleArray: true,
     });
@@ -28,8 +28,6 @@ describe('pruneData', () => {
     };
 
     assert.deepStrictEqual(pruneData(payload), {
-      nullValue: null,
-      emptyString: '',
       primitive: 'ok',
       object: { id: 1 },
       many: [1, 2],
@@ -51,7 +49,7 @@ describe('pruneData', () => {
     assert.deepStrictEqual(pruneData(payload, options), payload);
   });
 
-  it('removes opt-in cleanup targets', () => {
+  it('removes explicitly enabled cleanup targets', () => {
     const payload = { nullValue: null, empty: '', value: 'kept' };
     const options = { removeEmptyString: true, removeNull: true };
 
@@ -62,8 +60,8 @@ describe('pruneData', () => {
 
   it('handles root values according to the defaults', () => {
     assert.strictEqual(pruneData([]), undefined);
-    assert.strictEqual(pruneData(null), null);
-    assert.strictEqual(pruneData(''), '');
+    assert.strictEqual(pruneData(null), undefined);
+    assert.strictEqual(pruneData(''), undefined);
   });
 
   it('preserves scalar values', () => {

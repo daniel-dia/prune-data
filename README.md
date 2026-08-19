@@ -29,8 +29,7 @@ const payload = pruneData({
   debug: undefined,
   rows: [{ id: 1, tags: [] }],
 });
-
-// { status: 'ok', metadata: null, rows: { id: 1 } }
+// { status: 'ok', rows: { id: 1 } }
 ```
 
 Run it before your encoder:
@@ -94,7 +93,7 @@ Encoding the original response with TOON retains the empty values and nested one
         question: What is the process of photosynthesis?
 ```
 
-After `pruneData(response, { removeEmptyString: true, removeNull: true })`, empty values are removed and one-item arrays are unwrapped. Encoding the result with TOON produces:
+After `pruneData(response)`, empty values are removed and one-item arrays are unwrapped. Encoding the result with TOON produces:
 
 ```text
 [3]{id,answers{score,comment},question}:
@@ -109,17 +108,17 @@ Default values are shown below.
 
 | Option | Default | Effect |
 | --- | --- | --- |
-| `removeNull` | `false` | Removes `null` values. |
+| `removeNull` | `true` | Removes `null` values. |
 | `removeUndefined` | `true` | Removes `undefined` values. |
-| `removeEmptyString` | `false` | Removes `''` values. |
+| `removeEmptyString` | `true` | Removes `''` values. |
 | `removeEmptyArray` | `true` | Removes empty arrays. |
 | `removeEmptyObject` | `true` | Removes empty plain objects. |
 | `unwrapSingleArray` | `true` | Changes `[value]` into `value`. |
 
 ```js
 pruneData(payload, {
-  removeNull: true,
-  removeEmptyString: true,
+  removeNull: false,
+  removeEmptyString: false,
   unwrapSingleArray: false,
 });
 ```

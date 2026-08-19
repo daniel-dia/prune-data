@@ -12,8 +12,8 @@ const SKIP = Symbol('skip');
 export const defaults: Readonly<Required<CleanOptions>> = {
   removeEmptyArray: true,
   removeEmptyObject: true,
-  removeEmptyString: false,
-  removeNull: false,
+  removeEmptyString: true,
+  removeNull: true,
   removeUndefined: true,
   unwrapSingleArray: true,
 };
