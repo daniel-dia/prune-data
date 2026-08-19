@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import slimify, { defaults } from './src/index.ts';
+import pruneData, { defaults } from './src/index.ts';
 
-describe('slimify', () => {
+describe('pruneData', () => {
   it('uses compact defaults', () => {
     assert.deepStrictEqual(defaults, {
       removeEmptyArray: true,
@@ -27,7 +27,7 @@ describe('slimify', () => {
       nested: [[], [{ active: true }]],
     };
 
-    assert.deepStrictEqual(slimify(payload), {
+    assert.deepStrictEqual(pruneData(payload), {
       nullValue: null,
       emptyString: '',
       primitive: 'ok',
@@ -48,33 +48,33 @@ describe('slimify', () => {
       unwrapSingleArray: false,
     };
 
-    assert.deepStrictEqual(slimify(payload, options), payload);
+    assert.deepStrictEqual(pruneData(payload, options), payload);
   });
 
   it('removes opt-in cleanup targets', () => {
     const payload = { nullValue: null, empty: '', value: 'kept' };
     const options = { removeEmptyString: true, removeNull: true };
 
-    assert.deepStrictEqual(slimify(payload, options), { value: 'kept' });
-    assert.strictEqual(slimify('', options), undefined);
-    assert.strictEqual(slimify(null, options), undefined);
+    assert.deepStrictEqual(pruneData(payload, options), { value: 'kept' });
+    assert.strictEqual(pruneData('', options), undefined);
+    assert.strictEqual(pruneData(null, options), undefined);
   });
 
   it('handles root values according to the defaults', () => {
-    assert.strictEqual(slimify([]), undefined);
-    assert.strictEqual(slimify(null), null);
-    assert.strictEqual(slimify(''), '');
+    assert.strictEqual(pruneData([]), undefined);
+    assert.strictEqual(pruneData(null), null);
+    assert.strictEqual(pruneData(''), '');
   });
 
   it('preserves scalar values', () => {
-    assert.strictEqual(slimify('value'), 'value');
-    assert.strictEqual(slimify(42), 42);
-    assert.strictEqual(slimify(true), true);
+    assert.strictEqual(pruneData('value'), 'value');
+    assert.strictEqual(pruneData(42), 42);
+    assert.strictEqual(pruneData(true), true);
   });
 
   it('preserves non-plain objects', () => {
     const date = new Date('2026-08-17T00:00:00.000Z');
-    const result = slimify({ date });
+    const result = pruneData({ date });
 
     assert.strictEqual(result.date, date);
   });
@@ -82,6 +82,6 @@ describe('slimify', () => {
   it('cleans objects without a prototype', () => {
     const payload = Object.assign(Object.create(null), { empty: [], value: ['ok'] });
 
-    assert.deepStrictEqual(slimify(payload), { value: 'ok' });
+    assert.deepStrictEqual(pruneData(payload), { value: 'ok' });
   });
 });

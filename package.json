@@ -1,10 +1,10 @@
 {
-  "name": "slimify",
+  "name": "prune-data",
   "version": "1.0.0",
-  "description": "Dependency-free recursive payload slimmer.",
+  "description": "Dependency-free recursive data pruning utility.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daniel-dia/slimify.git"
+    "url": "git+https://github.com/daniel-dia/prune-data.git"
   },
   "type": "module",
   "exports": {
@@ -24,8 +24,8 @@
   },
   "scripts": {
     "build": "tsgo -p tsconfig.json",
-    "test": "node --test --test-isolation=process slimify.test.js",
-    "coverage": "node --test --test-isolation=process --experimental-test-coverage slimify.test.js",
+    "test": "node --test --test-isolation=process prune-data.test.js",
+    "coverage": "node --test --test-isolation=process --experimental-test-coverage prune-data.test.js",
     "mutation": "stryker run",
     "prepack": "npm run build"
   },

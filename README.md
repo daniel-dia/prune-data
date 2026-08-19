@@ -1,6 +1,6 @@
-# slimify
+# prune-data
 
-A tiny, dependency-free Node.js utility that recursively removes empty values and simplifies payloads without mutating the input.
+A tiny, dependency-free Node.js utility that recursively prunes data without mutating the input.
 
 ## Why
 
@@ -13,7 +13,7 @@ Do not use it for API payloads, persistence, events, RPC, or communication betwe
 ## Install
 
 ```bash
-npm install slimify
+npm install prune-data
 ```
 
 Requires Node.js 26 or newer.
@@ -21,9 +21,9 @@ Requires Node.js 26 or newer.
 ## Usage
 
 ```js
-import slimify from 'slimify';
+import pruneData from 'prune-data';
 
-const payload = slimify({
+const payload = pruneData({
   status: ['ok'],
   metadata: null,
   debug: undefined,
@@ -36,7 +36,7 @@ const payload = slimify({
 Run it before your encoder:
 
 ```js
-const toon = encode(slimify(response));
+const toon = encode(pruneData(response));
 ```
 
 ## TOON Example
@@ -94,7 +94,7 @@ Encoding the original response with TOON retains the empty values and nested one
         question: What is the process of photosynthesis?
 ```
 
-After `slimify(response, { removeEmptyString: true, removeNull: true })`, empty values are removed and one-item arrays are unwrapped. Encoding the result with TOON produces:
+After `pruneData(response, { removeEmptyString: true, removeNull: true })`, empty values are removed and one-item arrays are unwrapped. Encoding the result with TOON produces:
 
 ```text
 [3]{id,answers{score,comment},question}:
@@ -117,7 +117,7 @@ Default values are shown below.
 | `unwrapSingleArray` | `true` | Changes `[value]` into `value`. |
 
 ```js
-slimify(payload, {
+pruneData(payload, {
   removeNull: true,
   removeEmptyString: true,
   unwrapSingleArray: false,

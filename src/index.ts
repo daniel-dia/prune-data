@@ -48,7 +48,7 @@ function clean(value: unknown, options: Required<CleanOptions>): unknown {
   return value;
 }
 
-export default function slimify(value: unknown, options: CleanOptions = {}): unknown {
+export default function pruneData(value: unknown, options: CleanOptions = {}): unknown {
   const result = clean(value, { ...defaults, ...options });
   return result === SKIP ? undefined : result;
 }
