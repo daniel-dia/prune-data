@@ -1,7 +1,7 @@
 {
   "name": "prune-data",
   "version": "1.1.1",
-  "description": "Dependency-free recursive data pruning utility.",
+  "description": "Dependency-free recursive data pruning JavaScript utility.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/daniel-dia/prune-data.git"
@@ -20,7 +20,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=26"
+    "node": ">=24"
   },
   "scripts": {
     "build": "tsgo -p tsconfig.json",

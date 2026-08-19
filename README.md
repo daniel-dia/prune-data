@@ -1,6 +1,6 @@
 # prune-data
 
-A tiny, dependency-free Node.js utility that recursively prunes data without mutating the input.
+A tiny, dependency-free JavaScript utility that recursively prunes data without mutating the input.
 
 ## Why
 
@@ -16,7 +16,7 @@ Do not use it for API payloads, persistence, events, RPC, or communication betwe
 npm install prune-data
 ```
 
-Requires Node.js 26 or newer.
+Requires Node.js 24 or newer.
 
 ## Usage
 
