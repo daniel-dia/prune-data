@@ -1,10 +1,10 @@
 {
-  "name": "context-lean",
+  "name": "slimify",
   "version": "0.1.6",
-  "description": "Dependency-free payload slimmer for compact agent context.",
+  "description": "Dependency-free recursive payload slimmer.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daniel-dia/context-lean.git"
+    "url": "git+https://github.com/daniel-dia/slimify.git"
   },
   "type": "module",
   "exports": {
@@ -20,25 +20,26 @@
     "LICENSE"
   ],
   "engines": {
-    "node": ">=24"
+    "node": ">=26"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "test": "node --test --test-isolation=process context-slim.test.js",
-    "coverage": "node --test --test-isolation=process --experimental-test-coverage context-slim.test.js",
+    "build": "tsgo -p tsconfig.json",
+    "test": "node --test --test-isolation=process slimify.test.js",
+    "coverage": "node --test --test-isolation=process --experimental-test-coverage slimify.test.js",
     "mutation": "stryker run",
     "prepack": "npm run build"
   },
   "keywords": [
-    "agent",
-    "context",
-    "toon",
+    "payload",
+    "prune",
+    "recursive",
     "clean",
     "compact"
   ],
   "license": "MIT",
   "devDependencies": {
+    "@typescript/native-preview": "^7.0.0-dev.20260707.2",
     "@stryker-mutator/core": "^10.0.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9.3"
   }
 }

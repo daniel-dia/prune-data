@@ -1,6 +1,6 @@
-# context-lean
+# slimify
 
-A tiny, dependency-free Node.js utility that removes low-value response data before encoding it for an agent (for example, with TOON).
+A tiny, dependency-free Node.js utility that recursively removes empty values and simplifies payloads without mutating the input.
 
 ## Why
 
@@ -13,7 +13,7 @@ Do not use it for API payloads, persistence, events, RPC, or communication betwe
 ## Install
 
 ```bash
-npm install context-lean
+npm install slimify
 ```
 
 Requires Node.js 26 or newer.
@@ -21,21 +21,22 @@ Requires Node.js 26 or newer.
 ## Usage
 
 ```js
-import contextSlim from 'context-lean';
+import slimify from 'slimify';
 
-const payload = contextSlim({
+const payload = slimify({
   status: ['ok'],
   metadata: null,
+  debug: undefined,
   rows: [{ id: 1, tags: [] }],
 });
 
-// { status: 'ok', rows: { id: 1 } }
+// { status: 'ok', metadata: null, rows: { id: 1 } }
 ```
 
 Run it before your encoder:
 
 ```js
-const toon = encode(contextSlim(response));
+const toon = encode(slimify(response));
 ```
 
 ## TOON Example
@@ -93,7 +94,7 @@ Encoding the original response with TOON retains the empty values and nested one
         question: What is the process of photosynthesis?
 ```
 
-After `contextSlim(response)`, empty values are removed and one-item arrays are unwrapped. Encoding the result with TOON produces:
+After `slimify(response, { removeEmptyString: true, removeNull: true })`, empty values are removed and one-item arrays are unwrapped. Encoding the result with TOON produces:
 
 ```text
 [3]{id,answers{score,comment},question}:
@@ -104,20 +105,21 @@ After `contextSlim(response)`, empty values are removed and one-item arrays are 
 
 ## Options
 
-All options default to `true`.
+Default values are shown below.
 
-| Option | Effect |
-| --- | --- |
-| `removeNull` | Removes `null` values. |
-| `removeUndefined` | Removes `undefined` values. |
-| `removeEmptyString` | Removes `''` values. |
-| `removeEmptyArray` | Removes empty arrays. |
-| `removeEmptyObject` | Removes empty plain objects. |
-| `unwrapSingleArray` | Changes `[value]` into `value`. |
+| Option | Default | Effect |
+| --- | --- | --- |
+| `removeNull` | `false` | Removes `null` values. |
+| `removeUndefined` | `true` | Removes `undefined` values. |
+| `removeEmptyString` | `false` | Removes `''` values. |
+| `removeEmptyArray` | `true` | Removes empty arrays. |
+| `removeEmptyObject` | `true` | Removes empty plain objects. |
+| `unwrapSingleArray` | `true` | Changes `[value]` into `value`. |
 
 ```js
-contextSlim(payload, {
-  removeNull: false,
+slimify(payload, {
+  removeNull: true,
+  removeEmptyString: true,
   unwrapSingleArray: false,
 });
 ```
@@ -133,7 +135,7 @@ npm test
 npm run coverage
 ```
 
-The published package has no runtime dependencies. TypeScript is a development-only compiler that generates `dist/index.js` and `dist/index.d.ts`; tests run against the compiled JavaScript. Tests use the built-in `node:test` runner with process isolation and built-in coverage.
+The published package has no runtime dependencies. `@typescript/native-preview` provides `tsgo` to generate `dist/index.js` and `dist/index.d.ts`. TypeScript 5.9 remains a development-only dependency for Stryker configuration preprocessing. Tests use Node.js native TypeScript support and the built-in `node:test` runner with process isolation and coverage.
 
 ## License
 

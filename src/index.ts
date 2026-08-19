@@ -10,11 +10,11 @@ export interface CleanOptions {
 const SKIP = Symbol('skip');
 
 export const defaults: Readonly<Required<CleanOptions>> = {
-  removeNull: true,
-  removeUndefined: true,
-  removeEmptyString: true,
   removeEmptyArray: true,
   removeEmptyObject: true,
+  removeEmptyString: false,
+  removeNull: false,
+  removeUndefined: true,
   unwrapSingleArray: true,
 };
 
@@ -48,7 +48,7 @@ function clean(value: unknown, options: Required<CleanOptions>): unknown {
   return value;
 }
 
-export default function contextSlim(value: unknown, options: CleanOptions = {}): unknown {
+export default function slimify(value: unknown, options: CleanOptions = {}): unknown {
   const result = clean(value, { ...defaults, ...options });
   return result === SKIP ? undefined : result;
 }
